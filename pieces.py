@@ -31,8 +31,8 @@ class Pawn(Piece):
         Piece.__init__(self)
         self.type = 'pawn'
         self.color = self.colors[color]
-        self.marker = self.markers[self['type']]
-        self.value = self.values['type']
+        self.marker = self.markers[self.type]
+        self.value = self.values[self.type]
 
     def __repr__(self):
 
@@ -45,8 +45,8 @@ class Tower(Piece):
         Piece.__init__(self)
         self.type = 'tower'
         self.color = self.colors[color]
-        self.marker = self.markers[self['type']]
-        self.value = self.values['type']
+        self.marker = self.markers[self.type]
+        self.value = self.values[self.type]
 
     def __repr__(self):
 
@@ -59,8 +59,8 @@ class Bishop(Piece):
         Piece.__init__(self)
         self.type = 'bishop'
         self.color = self.colors[color]
-        self.marker = self.markers[self['type']]
-        self.value = self.values['type']
+        self.marker = self.markers[self.type]
+        self.value = self.values[self.type]
 
     def __repr__(self):
 
@@ -73,8 +73,8 @@ class Knight(Piece):
         Piece.__init__(self)
         self.type = 'knight'
         self.color = self.colors[color]
-        self.marker = self.markers[self['type']]
-        self.value = self.values['type']
+        self.marker = self.markers[self.type]
+        self.value = self.values[self.type]
 
     def __repr__(self):
 
@@ -87,8 +87,8 @@ class Queen(Piece):
         Piece.__init__(self)
         self.type = 'queen'
         self.color = self.colors[color]
-        self.marker = self.markers[self['type']]
-        self.value = self.values['type']
+        self.marker = self.markers[self.type]
+        self.value = self.values[self.type]
 
     def __repr__(self):
 
@@ -101,8 +101,8 @@ class King(Piece):
         Piece.__init__(self)
         self.type = 'king'
         self.color = self.colors[color]
-        self.marker = self.markers[self['type']]
-        self.value = self.values['type']
+        self.marker = self.markers[self.type]
+        self.value = self.values[self.type]
 
     def __repr__(self):
 
