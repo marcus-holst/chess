@@ -86,9 +86,3 @@ class King(Piece):
         self.color = self.colors[color]
         self.marker = self.markers[self.type]
         self.value = self.values[self.type]
-
-
-pawn = Pawn('white')
-print(pawn)
-piece = Piece()
-print(piece)
