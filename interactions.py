@@ -1,14 +1,25 @@
 """ This module acts as the input/output interface for the players. """
+from typing import List
+from players import Player
 
 
-def request_move(*args):
+def request_player_name() -> List[str]:
+    """ Asks for two player names and returns them as a list. """
+    print('Who\'s playing?\n')
+    names = []
+
+    for i in range(2):
+        name = input(f'Name of Player {i + 1}: ')
+        names.append(name)
+
+    return names
+
+
+def request_move(player: Player, *args):
     """ Asks the user for input in order to make a move. """
-    print(
-        'Example: E2E4 moves the piece on E2 to E4. You can use lower ' +
-        'case.\n'
-    )
+    print(f'{player.team.title()} to move.')
     if len(args) == 0:
-        move = input('Please enter your move: ')
+        move = input(f'{player}, please enter your move: ')
     else:
         move = args[0]
 

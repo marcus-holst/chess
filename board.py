@@ -48,7 +48,7 @@ def _create_board() -> Dict:
     background = _create_board_background()
 
     plt.ion()
-    fig = plt.figure(figsize=(4, 4), dpi=150)
+    fig = plt.figure(figsize=(4.5, 4.5), dpi=150)
     # Using gridspec to be able to control the layout of the two axes
     # that hold coordinates.
     grid_spec = plt.GridSpec(
