@@ -2,7 +2,7 @@
 are being followed. """
 import re
 from typing import List
-from pieces import Piece
+from classes import Move, Piece
 
 
 def check_only_valid_characters(move_string):
@@ -53,17 +53,17 @@ def check_en_passant(
 
 def update_en_passant_position(
     move_piece_type: str,
-    move_coordinates: List[List[int]]
+    move: Move
 ) -> List[int]:
     """ Checks if the last moved piece was a pawn and the absolute distance
     travelled along the x axis was 2. It then returns the position between the
     start and end position on the y axis. """
-    start_move, end_move = move_coordinates
-    delta_y = (1 + end_move[1]) - (1 + start_move[1])
-    if move_piece_type == 'pawn' and abs(delta_y) == 2:
-        if delta_y > 0:
-            return [end_move[0], end_move[1] - 1]
+    if move_piece_type == 'pawn' and abs(move.delta_rows) == 2:
+        if move.delta_rows > 0:
+            # TODO Figure out how to input the correct coordinates (and not
+            # user input)
+            return [move.end.row - 1, move.end.col]
         else:
-            return [end_move[0], end_move[1] + 1]
+            return [move.end.row + 1, move.end.col]
 
     return ['', '']

@@ -1,12 +1,10 @@
 """ This is the main game. """
-from players import Player, player_queue
-from board import Board
-import positions
+import classes
 import control
 import interactions
 
-BOARD = Board()
-POSITIONS = positions.Positions()
+BOARD = classes.Board()
+POSITIONS = classes.Positions()
 BOARD.update_board(POSITIONS.get_positions())
 BOARD.show_board()
 
@@ -23,12 +21,12 @@ NAMES = interactions.request_player_name()
 PLAYERS = []
 # Set player names
 for name in NAMES:
-    PLAYERS.append(Player(name))
+    PLAYERS.append(classes.Player(name))
 
 # Assign teams. Happens just before starting each the game loop.
 SECOND_TEAM = PLAYERS[0].assign_first_team()
 PLAYERS[1].assign_second_team(SECOND_TEAM)
-QUEUE = player_queue(PLAYERS)
+QUEUE = classes.player_queue(PLAYERS)
 
 # Start play loop
 GAME_STATUS = True
@@ -47,9 +45,9 @@ while GAME_STATUS:
     # Check that there are no obstacles (except for knights) Check that the
     # destination is not occupied by the same team Check that move pattern
     # conforms to the piece's move set
-    MOVE = positions.Move(USER_INPUT)
+    MOVE = classes.Move(USER_INPUT)
     # x is the column and y is the row in the coordinate system
-    MOVE_DETAILS = POSITIONS.check_positions(MOVE.get_coordinates())
+    MOVE_DETAILS = POSITIONS.check_positions(MOVE)
     # TODO check if moved piece == "pawn" and the end position is the
     # en-passant position. Then execute special logic: remove previously moved
     # pawn and place new pawn on the desired square.
@@ -63,11 +61,11 @@ while GAME_STATUS:
         # TODO implement an en_passant function
         EN_PASSANT = control.check_en_passant(
                 MOVE_DETAILS['piece_start'].type,
-                MOVE.get_coordinates()[1],
+                MOVE.end.get_coordinates(),
                 EN_PASSANT_POSITION
                 )
         NORMAL_MOVE = MOVE_DETAILS['piece_start'].verify_move(
-                move_coordinates=MOVE.get_coordinates(),
+                move=MOVE,
                 captured_piece=MOVE_DETAILS['piece_end']
                 )
 
@@ -77,7 +75,7 @@ while GAME_STATUS:
             print('Sorry, this piece can\'t be moved like that.'
                   ' Please try again.')
             USER_INPUT = interactions.request_move(CURRENT_PLAYER)
-            MOVE = positions.Move(USER_INPUT)
+            MOVE = classes.Move(USER_INPUT)
             MOVE_DETAILS = POSITIONS.check_positions(MOVE.get_coordinates())
     # TODO implement update_en_passant_position()
     if EN_PASSANT:
@@ -86,9 +84,9 @@ while GAME_STATUS:
         CAPTURED_PIECE = MOVE_DETAILS['piece_end']
     EN_PASSANT_POSITION = control.update_en_passant_position(
             MOVE_DETAILS['piece_start'].type,
-            MOVE.get_coordinates()
+            MOVE
             )
-    LAST_MOVE = POSITIONS.update_positions(MOVE.get_coordinates())
+    LAST_MOVE = POSITIONS.update_positions(MOVE)
     BOARD.update_board(POSITIONS.get_positions(), MOVE.get_coordinates())
     if CAPTURED_PIECE != '':
         print(f'{CURRENT_PLAYER} captured: {CAPTURED_PIECE}.')

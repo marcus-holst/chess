@@ -1,6 +1,6 @@
 """ This module acts as the input/output interface for the players. """
 from typing import List
-from players import Player
+from classes import Player
 
 
 def request_player_name() -> List[str]:
